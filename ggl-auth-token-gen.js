@@ -1,5 +1,9 @@
+import * as fs from 'fs';
 import * as crypto from 'crypto';
 import base32 from 'base32.js';
+import Jimp from 'jimp';
+import QrCode from 'qrcode-reader';
+import parser from 'otpauth-migration-parser';
 
 const digest = (options) => {
   const secretAsBuffer = base32.decode(options.secret);
@@ -14,6 +18,11 @@ const digest = (options) => {
   return hmac.digest();
 };
 
+/**
+ *
+ * @param {object} options -
+ * @returns {number}
+ */
 export const getOTT = ({ secret }) => {
   const digits = 6;
   const digested = digest({ secret });
@@ -26,4 +35,27 @@ export const getOTT = ({ secret }) => {
   code = new Array(digits + 1).join('0') + code.toString(10); // left-pad code
 
   return code.substr(-digits); // return length number off digits
+}
+
+/**
+ *
+ * @param {string} path -
+ * @returns {Promise<string>}
+ */
+export const getSecretFromQR = (path) => {
+  return new Promise((resolve, reject) => {
+    const qr = new QrCode();
+    const buffer = fs.readFileSync(path);
+    Jimp.read(buffer, (err, image) => {
+      if (err) reject(err);
+      var qr = new QrCode();
+      qr.callback = async (err, value) => {
+        if (err) reject(err);
+        console.log(`QR value: ${value.result}`);
+        const parsedDataList = await parser(value.result);
+        resolve(parsedDataList[0].secret);
+      };
+      qr.decode(image.bitmap);
+    });
+  });
 }

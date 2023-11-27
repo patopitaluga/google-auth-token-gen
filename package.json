@@ -2,15 +2,27 @@
   "name": "google-auth-token-gen",
   "version": "1.0.0",
   "description": "Generate a one-time token compatible with Google Authenticator",
-  "main": "index.js",
+  "engines": {
+    "node": ">=20.1.0",
+    "npm": ">=9.6.4"
+  },
+  "bin": {
+    "getott": "./bin/getott.js",
+    "getsecret": "./bin/getsecret.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "getott": "node bin/getott.js",
+    "getsecret": "node bin/getsecret.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
-    "base32.js": "^0.1.0"
+    "base32.js": "^0.1.0",
+    "dotenv": "^16.3.1",
+    "jimp": "^0.22.10",
+    "otpauth-migration-parser": "^0.1.1",
+    "qrcode-reader": "^1.0.4"
   }
 }
