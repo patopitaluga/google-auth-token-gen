@@ -10,12 +10,16 @@ Generate a one-time token compatible with Google Authenticator
 ```
 git clone https://github.com/patopitaluga/google-auth-token-gen.git
 ```
+2. Install dependencies
+```
+npm install
+```
 
-1. Get the QR code to transfer your Google Authenticator code following these instructions: https://support.google.com/accounts/answer/1066447?hl=en&co=GENIE.Platform%3DiOS
+3. Get the QR code to transfer your Google Authenticator code following these instructions: https://support.google.com/accounts/answer/1066447?hl=en&co=GENIE.Platform%3DiOS
 
-2. Screen capture the QR code, move the screen capture image file to your computer and store it in the "qr" folder.
+4. Screen capture the QR code, move the screen capture image file to your computer and store it in the "qr" folder.
 
-3. Run
+5. Run
 
 ```
 npm run getsecret
@@ -23,7 +27,7 @@ npm run getsecret
 
 Copy the output secret.
 
-4. Run
+6. Run
 
 ```
 npm run getott {the-secret}
